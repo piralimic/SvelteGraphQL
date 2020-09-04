@@ -1,32 +1,8 @@
 <script>
   import { getClient, query } from "svelte-apollo";
-  import { gql } from "apollo-boost";
+  import { GET_ANIMALS } from "./queries";
 
   const client = getClient();
-  const GET_ANIMALS = gql`
-    {
-      animal {
-        id
-        name
-        type {
-          value
-        }
-        sex {
-          value
-        }
-        birthdate
-        description
-        picture_url
-        reference_number
-        sponsorings {
-          sponsor {
-            first_name
-            last_name
-          }
-        }
-      }
-    }
-  `;
   const animals = query(client, { query: GET_ANIMALS });
 
   function hasSponsor(sponsorings) {
