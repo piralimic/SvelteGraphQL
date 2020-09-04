@@ -1,12 +1,35 @@
 <script>
   import { getClient, query } from "svelte-apollo";
   import { GET_ANIMALS } from "./queries";
+  import { MONTHS } from "./utils";
 
   const client = getClient();
   const animals = query(client, { query: GET_ANIMALS });
 
+  const today = new Date(Date.now());
+
   function isFemale(animal) {
     return animal.sex.id === 2 ? "e" : "";
+  }
+
+  function formattedDate(birthdate) {
+    const date = new Date(birthdate);
+    return `${date.getDate()} ${MONTHS[date.getMonth()]} ${date.getFullYear()}`;
+  }
+
+  function getAge(birthdate) {
+    const birth = new Date(birthdate);
+    let years = today.getFullYear() - birth.getFullYear();
+    let months = today.getMonth() - birth.getMonth();
+    if (months < 0) {
+      months += 12;
+      years--;
+    }
+    let result = `${years} an${years > 1 ? "s" : ""}`;
+    if (months > 0) {
+      result = `${result} et ${months} mois`;
+    }
+    return result;
   }
 </script>
 
@@ -21,7 +44,8 @@
     <h3>{animal.name}</h3>
     <p>{animal.type.value}</p>
     <p>{animal.sex.value}</p>
-    <p>{animal.birthdate}</p>
+    <p>Né{isFemale(animal)} le {formattedDate(animal.birthdate)}</p>
+    <p>({getAge(animal.birthdate)})</p>
     <img alt="picture of {animal.name}" src="{animal.picture_url}" width="200px">
     <p>{animal.description}</p>
     {#if animal.sponsorings.length > 0}
