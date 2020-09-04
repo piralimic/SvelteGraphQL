@@ -5,8 +5,8 @@
   const client = getClient();
   const animals = query(client, { query: GET_ANIMALS });
 
-  function hasSponsor(sponsorings) {
-    return sponsorings.length > 0 ? true : false;
+  function isFemale(animal) {
+    return animal.sex.id === 2 ? "e" : "";
   }
 </script>
 
@@ -24,8 +24,8 @@
     <p>{animal.birthdate}</p>
     <img alt="picture of {animal.name}" src="{animal.picture_url}" width="200px">
     <p>{animal.description}</p>
-    {#if hasSponsor(animal.sponsorings)}
-      {animal.name} est parrainé par 
+    {#if animal.sponsorings.length > 0}
+      {animal.name} est parrainé{isFemale(animal)} par 
       {#each animal.sponsorings as sponsoring}
         {sponsoring.sponsor.first_name} {sponsoring.sponsor.last_name}
       {/each}

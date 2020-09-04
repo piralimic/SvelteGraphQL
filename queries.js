@@ -9,6 +9,7 @@ export const GET_ANIMALS = gql`
         value
       }
       sex {
+        id
         value
       }
       birthdate
