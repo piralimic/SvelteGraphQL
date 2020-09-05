@@ -9,7 +9,7 @@
   const today = new Date(Date.now());
 
   function isFemale(animal) {
-    return animal.sex.id === 2 ? "e" : "";
+    return animal.gender.id === 2 ? "e" : "";
   }
 
   function formattedDate(birthdate) {
@@ -37,13 +37,13 @@
 {#await $animals}
   Loading...
 {:then result}
-  <p>Total: {result.data.animal.length}</p>
+  <p>Total: {result.data.animals.length}</p>
   <hr>
-  {#each result.data.animal as animal}
+  {#each result.data.animals as animal}
     Référence {animal.reference_number}
     <h3>{animal.name}</h3>
-    <p>{animal.type.value}</p>
-    <p>{animal.sex.value}</p>
+    <p>{animal.species.value}</p>
+    <p>{animal.gender.value}</p>
     <p>Né{isFemale(animal)} le {formattedDate(animal.birthdate)}</p>
     <p>({getAge(animal.birthdate)})</p>
     <img alt="picture of {animal.name}" src="{animal.picture_url}" width="200px">

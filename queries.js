@@ -2,13 +2,13 @@ import { gql } from "apollo-boost";
 
 export const GET_ANIMALS = gql`
   {
-    animal {
+    animals {
       id
       name
-      type {
+      species {
         value
       }
-      sex {
+      gender {
         id
         value
       }
