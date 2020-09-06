@@ -14,7 +14,9 @@ export const GET_ANIMALS = gql`
       }
       birthdate
       description
-      picture_url
+      pictures {
+        url
+      }
       reference_number
       sponsorings {
         sponsor {

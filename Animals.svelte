@@ -46,7 +46,9 @@
     <p>{animal.gender.value}</p>
     <p>Né{isFemale(animal)} le {formattedDate(animal.birthdate)}</p>
     <p>({getAge(animal.birthdate)})</p>
-    <img alt="picture of {animal.name}" src="{animal.picture_url}" width="200px">
+    {#each animal.pictures as picture}
+      <img alt="picture of {animal.name}" src="{picture.url}" width="200px">
+    {/each}
     <p>{animal.description}</p>
     {#if animal.sponsorings.length > 0}
       {animal.name} est parrainé{isFemale(animal)} par 
